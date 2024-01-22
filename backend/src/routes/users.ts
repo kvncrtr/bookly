@@ -22,9 +22,7 @@ router.post("/register", [
          email: req.body.email,
       });
 
-      if (user) {
-         return res.status(400).json({ message: "User already exists" });
-      }
+      if (user) res.status(400).json({ message: "User already exists" });
 
       user = new User(req.body)
       await user.save();
@@ -33,7 +31,7 @@ router.post("/register", [
          { userId: user.id },
          process.env.JWT_SECRET_KEY as string, 
          {
-            expiresIn: "1d"
+            expiresIn: "1d",
          }
       );
 
@@ -42,10 +40,11 @@ router.post("/register", [
          secure: process.env.NODE_ENV === "production",
          maxAge: 86400000
       });
+
       return res.sendStatus(200);
    } catch (error) {
       console.log(error);
-      res.status(500).send({ message: "Something wen wrong" });
+      res.status(500).send({ message: "Something went wrong" });
    }
 });
 

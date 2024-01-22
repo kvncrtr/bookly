@@ -11,7 +11,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
-app.use("/api/users", userRoutes)
+app.use("/api/users", userRoutes);
 
 app.listen(7000, () => {
    console.log('server is running on port localhost:7000')
